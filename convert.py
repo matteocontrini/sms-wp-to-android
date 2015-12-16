@@ -31,7 +31,11 @@ for m in messages:
 	sys.stdout.flush()
 	
 	# Message body
-	body = m.find('Body').text.encode('utf-8')
+	try:
+		body = m.find('Body').text.encode('utf-8')
+	except Exception, e:
+		print ET.tostring(m, encoding='utf8', method='xml')
+		raise e
 	
 	# Type --> 1=received, 2=sent
 	type = '1' if m.find('IsIncoming').text == 'true' else '2'
