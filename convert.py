@@ -15,9 +15,9 @@ e = ET.parse(file_path).getroot()
 messages = e.findall('Message')
 total_count = len(messages)
 
-output_template = u'<?xml version=\'1.0\' encoding=\'UTF-8\' standalone=\'yes\' ?><smses count="{count}">{content}</smses>'
-line_template = u'<sms protocol="0" address="{address}" date="{timestamp:.0f}" type="{type}" subject="null" body="{body}" toa="null" sc_toa="null" service_center="null" read="1" status="-1" locked="0" />'
-content = u''
+output_template = '<?xml version=\'1.0\' encoding=\'UTF-8\' standalone=\'yes\' ?><smses count="{count}">{content}</smses>'
+line_template = '<sms protocol="0" address="{address}" date="{timestamp:.0f}" type="{type}" subject="null" body="{body}" toa="null" sc_toa="null" service_center="null" read="1" status="-1" locked="0" />'
+content = ''
 
 print 'Total count of messages: ' + str(total_count) + '\n'
 
@@ -33,7 +33,7 @@ for m in messages:
 	# Message body
 	text = m.find('Body').text
 	if text is not None:
-		body = text.encode('utf-8')
+		body = text.encode('utf-8', 'ignore')
 	else:
 		# Fallback to empty string when Body is empty,
 		# for some reason
