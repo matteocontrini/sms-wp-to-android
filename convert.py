@@ -35,7 +35,7 @@ for m in messages:
 	if text is not None:
 		body = text.encode('utf-8')
 	else:
-		# Fallback to empty string when message is empty,
+		# Fallback to empty string when Body is empty,
 		# for some reason
 		body = ''
 	
