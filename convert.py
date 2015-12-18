@@ -31,11 +31,13 @@ for m in messages:
 	sys.stdout.flush()
 	
 	# Message body
-	try:
-		body = m.find('Body').text.encode('utf-8')
-	except Exception, e:
-		print ET.tostring(m, encoding='utf8', method='xml')
-		raise e
+	text = m.find('Body').text
+	if text is not None:
+		body = text.encode('utf-8')
+	else:
+		# Fallback to empty string when message is empty,
+		# for some reason
+		body = ''
 	
 	# Type --> 1=received, 2=sent
 	type = '1' if m.find('IsIncoming').text == 'true' else '2'
