@@ -52,6 +52,9 @@ for m in messages:
 	else:
 		address = ''
 	
+	if address is not None and address != '':
+		address = address.encode('utf-8', 'ignore')
+	
 	# Uncomment and customize this for adding missing prefix
 	# if address[0] != '+' and address[0].isdigit() and len(address) > 7:
 	# 	address = '+39' + address
