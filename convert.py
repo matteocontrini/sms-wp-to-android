@@ -33,11 +33,7 @@ for m in messages:
 	# Message body
 	text = m.find('Body').text
 	if text is not None:
-		body = text.replace(
-			"<", "&lt;").replace(
-			">", "&gt;").replace(
-			"&", "&amp;").replace(
-			"\"", "&quot;").encode('utf-8', 'ignore')
+		body = text.replace("\"", "&quot;").encode('utf-8', 'ignore')
 	else:
 		# Fallback to empty string when Body is empty,
 		# for some reason
