@@ -1,7 +1,15 @@
 from __future__ import division
 import xml.etree.ElementTree as ET
-import Tkinter
-import tkFileDialog
+
+if (sys.version_info > (3, 0)):
+	import tkinter as Tkinter 
+	import tkinter.filedialog as tkFileDialog
+	do_encode = True
+else:
+	import Tkinter
+	import tkFileDialog
+	do_encode = False
+
 import os
 import sys
 
@@ -19,7 +27,7 @@ output_template = '<?xml version=\'1.0\' encoding=\'UTF-8\' standalone=\'yes\' ?
 line_template = '<sms protocol="0" address="{address}" date="{timestamp:.0f}" type="{type}" subject="null" body="{body}" toa="null" sc_toa="null" service_center="null" read="1" status="-1" locked="0" />'
 content = ''
 
-print 'Total count of messages: ' + str(total_count) + '\n'
+print('Total count of messages: ' + str(total_count) + '\n')
 
 i = 0
 for m in messages:
@@ -33,7 +41,9 @@ for m in messages:
 	# Message body
 	text = m.find('Body').text
 	if text is not None:
-		body = text.replace("\"", "&quot;").encode('utf-8', 'ignore')
+		body = text.replace("\"", "&quot;")
+		if do_encode:
+			body = body.encode('utf-8', 'ignore')
 	else:
 		# Fallback to empty string when Body is empty,
 		# for some reason
@@ -52,7 +62,7 @@ for m in messages:
 	else:
 		address = ''
 	
-	if address is not None and address != '':
+	if address is not None and address != '' and do_encode:
 		address = address.encode('utf-8', 'ignore')
 	
 	# Uncomment and customize this for adding missing prefix
@@ -77,7 +87,7 @@ output = output_template.format(
 
 path = os.path.dirname(os.path.abspath(file_path))
 
-with open(os.path.join(path, 'wp_messages.xml'), 'w') as file:
+with open(os.path.join(path, 'wp_messages.xml'), 'w', encoding='utf-8') as file:
 	file.write(output)
 
-print '\n\nSuccess. Output to --> wp_messages.xml'
+print('\n\nSuccess. Output to --> wp_messages.xml')
