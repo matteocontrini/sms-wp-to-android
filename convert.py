@@ -1,6 +1,9 @@
 from __future__ import division
 import xml.etree.ElementTree as ET
 
+import os
+import sys
+
 if (sys.version_info > (3, 0)):
 	import tkinter as Tkinter 
 	import tkinter.filedialog as tkFileDialog
@@ -10,8 +13,6 @@ else:
 	import tkFileDialog
 	do_encode = False
 
-import os
-import sys
 
 # Show the open file dialog
 Tkinter.Tk().withdraw()
