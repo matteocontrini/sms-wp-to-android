@@ -7,11 +7,11 @@ import sys
 if (sys.version_info > (3, 0)):
 	import tkinter as Tkinter 
 	import tkinter.filedialog as tkFileDialog
-	do_encode = True
+	do_encode = False
 else:
 	import Tkinter
 	import tkFileDialog
-	do_encode = False
+	do_encode = True
 
 # Show the open file dialog
 Tkinter.Tk().withdraw()
