@@ -87,7 +87,7 @@ output = output_template.format(
 
 path = os.path.dirname(os.path.abspath(file_path))
 
-with open(os.path.join(path, 'wp_messages.xml'), 'w') as file:
+with open(os.path.join(path, 'wp_messages.xml'), 'w', encoding='utf-8') as file:
 	file.write(output)
 
 print('\n\nSuccess. Output to --> wp_messages.xml')
