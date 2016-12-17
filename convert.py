@@ -4,14 +4,14 @@ import xml.etree.ElementTree as ET
 import os
 import sys
 
-if (sys.version_info > (3, 0)):
-	import tkinter as Tkinter 
+if (sys.version_info >= (3, 0)):
+	import tkinter as Tkinter
 	import tkinter.filedialog as tkFileDialog
-	do_encode = False
+	isPy3 = True
 else:
 	import Tkinter
 	import tkFileDialog
-	do_encode = True
+	isPy3 = False
 
 # Show the open file dialog
 Tkinter.Tk().withdraw()
@@ -42,7 +42,7 @@ for m in messages:
 	text = m.find('Body').text
 	if text is not None:
 		body = text.replace("\"", "&quot;")
-		if do_encode:
+		if not isPy3:
 			body = body.encode('utf-8', 'ignore')
 	else:
 		# Fallback to empty string when Body is empty,
@@ -62,7 +62,7 @@ for m in messages:
 	else:
 		address = ''
 	
-	if address is not None and address != '' and do_encode:
+	if address is not None and address != '' and not isPy3:
 		address = address.encode('utf-8', 'ignore')
 	
 	# Uncomment and customize this for adding missing prefix
@@ -87,7 +87,11 @@ output = output_template.format(
 
 path = os.path.dirname(os.path.abspath(file_path))
 
-with open(os.path.join(path, 'wp_messages.xml'), 'w', encoding='utf-8') as file:
-	file.write(output)
+if isPy3:
+	with open(os.path.join(path, 'wp_messages.xml'), 'w', encoding='utf-8') as file:
+		file.write(output)
+else:
+	with open(os.path.join(path, 'wp_messages.xml'), 'w') as file:
+		file.write(output)
 
 print('\n\nSuccess. Output to --> wp_messages.xml')
