@@ -33,11 +33,11 @@ i = 0
 for m in messages:
 	i += 1
 	percentage = (i / total_count) * 100
-	
+
 	sys.stdout.write('\r')
 	sys.stdout.write("[%-20s] processing %d" % ('=' * int(percentage / 5), i))
 	sys.stdout.flush()
-	
+
 	# Message body
 	text = m.find('Body').text
 	if text is not None:
@@ -48,10 +48,10 @@ for m in messages:
 		# Fallback to empty string when Body is empty,
 		# for some reason
 		body = ''
-	
+
 	# Type --> 1=received, 2=sent
 	type = '1' if m.find('IsIncoming').text == 'true' else '2'
-	
+
 	# Received message, get the sender
 	if type == '1':
 		address = m.find('Sender').text
@@ -61,17 +61,17 @@ for m in messages:
 	# Ouch, fallback
 	else:
 		address = ''
-	
+
 	if address is not None and address != '' and not isPy3:
 		address = address.encode('utf-8', 'ignore')
-	
+
 	# Uncomment and customize this for adding missing prefix
 	# if address[0] != '+' and address[0].isdigit() and len(address) > 7:
 	# 	address = '+39' + address
-	
+
 	# Parse the timestamp into UNIX milliseconds timestamp
 	ts = int(m.find('LocalTimestamp').text) / 10000 - 11644473600000
-	
+
 	line = line_template.format(
 		address=address,
 		timestamp=ts,
