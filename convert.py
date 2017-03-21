@@ -24,7 +24,7 @@ messages = e.findall('Message')
 total_count = len(messages)
 
 output_template = '<?xml version=\'1.0\' encoding=\'UTF-8\' standalone=\'yes\' ?><smses count="{count}">{content}</smses>'
-line_template = '<sms protocol="0" address="{address}" date="{timestamp:.0f}" type="{type}" subject="null" body="{body}" toa="null" sc_toa="null" service_center="null" read="{read}" status="-1" locked="0" />'
+sms_template = '<sms protocol="0" address="{address}" date="{timestamp:.0f}" type="{type}" subject="null" body="{body}" toa="null" sc_toa="null" service_center="null" read="{read}" status="-1" locked="0" />'
 content = ''
 
 print('Total count of messages: ' + str(total_count) + '\n')
@@ -75,7 +75,7 @@ for m in messages:
 	# Parse the Windows file timestamp into UNIX milliseconds timestamp.
 	ts = int(m.find('LocalTimestamp').text) / (10 * 1000 * 1000) - 11644473600
 
-	line = line_template.format(
+	line = sms_template.format(
 		address=address,
 		timestamp=ts,
 		type=type,
