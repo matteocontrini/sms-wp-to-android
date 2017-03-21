@@ -24,7 +24,7 @@ messages = e.findall('Message')
 total_count = len(messages)
 
 output_template = '<?xml version=\'1.0\' encoding=\'UTF-8\' standalone=\'yes\' ?><smses count="{count}">{content}</smses>'
-line_template = '<sms protocol="0" address="{address}" date="{timestamp:.0f}" type="{type}" subject="null" body="{body}" toa="null" sc_toa="null" service_center="null" read="1" status="-1" locked="0" />'
+line_template = '<sms protocol="0" address="{address}" date="{timestamp:.0f}" type="{type}" subject="null" body="{body}" toa="null" sc_toa="null" service_center="null" read="{read}" status="-1" locked="0" />'
 content = ''
 
 print('Total count of messages: ' + str(total_count) + '\n')
@@ -52,6 +52,9 @@ for m in messages:
 	# Type --> 1=received, 2=sent
 	type = '1' if m.find('IsIncoming').text == 'true' else '2'
 
+	# Read --> 0=no, 1=yes
+	read = '1' if m.find('IsRead').text == 'true' else '0'
+
 	# Received message, get the sender
 	if type == '1':
 		address = m.find('Sender').text
@@ -76,7 +79,8 @@ for m in messages:
 		address=address,
 		timestamp=ts,
 		type=type,
-		body=body
+		body=body,
+		read=read
 	)
 	content += line
 
