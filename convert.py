@@ -72,8 +72,8 @@ for m in messages:
 	# if address[0] != '+' and address[0].isdigit() and len(address) > 7:
 	# 	address = '+39' + address
 
-	# Parse the timestamp into UNIX milliseconds timestamp
-	ts = int(m.find('LocalTimestamp').text) / 10000 - 11644473600000
+	# Parse the Windows file timestamp into UNIX milliseconds timestamp.
+	ts = int(m.find('LocalTimestamp').text) / (10 * 1000 * 1000) - 11644473600
 
 	line = line_template.format(
 		address=address,
