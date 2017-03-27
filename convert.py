@@ -42,6 +42,7 @@ for m in messages:
 	text = m.find('Body').text
 	if text is not None:
 		body = text.replace("\"", "&quot;")
+		body = text.replace("\n", "&#10;")
 		if not isPy3:
 			body = body.encode('utf-8', 'ignore')
 	else:
