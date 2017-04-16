@@ -53,8 +53,14 @@ for m in messages:
 	# Message body
 	text = m.find('Body').text
 	if text is not None:
+		# TODO: 
 		body = text.replace("\"", "&quot;")
-		body = text.replace("\n", "&#10;")
+		body = body.replace("\n", "&#10;")
+		body = body.replace("&", "&amp;")
+		body = body.replace("<", "&lt;")
+		body = body.replace(">", "&gt;")
+		body = body.replace("\'", "&apos;")
+		
 		if not isPy3:
 			body = body.encode('utf-8', 'ignore')
 	else:
