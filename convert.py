@@ -105,7 +105,7 @@ for m in messages:
 	if attachments is None:
 		line = sms_template.format(
 			address=address,
-			timestamp=ts,
+			timestamp=ts*1000,
 			type=type,
 			body=body,
 			read=read
@@ -206,7 +206,7 @@ for m in messages:
 			m_type=message_type,
 			exp=expiry,
 			resp_st=response_status,
-			date=ts,
+			date=ts*1000,
 			address=address,
 			readable_date=readable_date,
 			parts=parts,
