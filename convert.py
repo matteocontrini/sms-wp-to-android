@@ -53,8 +53,14 @@ for m in messages:
 	# Message body
 	text = m.find('Body').text
 	if text is not None:
+		# TODO: 
 		body = text.replace("\"", "&quot;")
-		body = text.replace("\n", "&#10;")
+		body = body.replace("\n", "&#10;")
+		body = body.replace("&", "&amp;")
+		body = body.replace("<", "&lt;")
+		body = body.replace(">", "&gt;")
+		body = body.replace("\'", "&apos;")
+		
 		if not isPy3:
 			body = body.encode('utf-8', 'ignore')
 	else:
@@ -99,7 +105,7 @@ for m in messages:
 	if attachments is None:
 		line = sms_template.format(
 			address=address,
-			timestamp=ts,
+			timestamp=ts*1000,
 			type=type,
 			body=body,
 			read=read
@@ -200,7 +206,7 @@ for m in messages:
 			m_type=message_type,
 			exp=expiry,
 			resp_st=response_status,
-			date=ts,
+			date=ts*1000,
 			address=address,
 			readable_date=readable_date,
 			parts=parts,
