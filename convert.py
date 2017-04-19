@@ -102,7 +102,7 @@ for m in messages:
 	ts = int(m.find('LocalTimestamp').text) / (10 * 1000 * 1000) - 11644473600
 
 	attachments = m.find('Attachments')
-	if attachments is None:
+	if attachments is None or len(attachments) == 0:
 		line = sms_template.format(
 			address=address,
 			timestamp=ts*1000,
