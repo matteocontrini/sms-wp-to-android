@@ -53,9 +53,9 @@ for m in messages:
 	# Message body
 	text = m.find('Body').text
 	if text is not None:
-		# TODO:
 		body = text.replace("\"", "&quot;")
 		body = body.replace("\n", "&#10;")
+		body = body.replace("&#x11;", "")
 		body = body.replace("&", "&amp;")
 		body = body.replace("<", "&lt;")
 		body = body.replace(">", "&gt;")
