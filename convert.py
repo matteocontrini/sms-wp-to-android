@@ -98,14 +98,17 @@ for m in messages:
 	# if address[0] != '+' and address[0].isdigit() and len(address) > 7:
 	# 	address = '+39' + address
 
-	# Parse the Windows file timestamp into UNIX milliseconds timestamp.
+	# Parse the Windows file timestamp into UNIX seconds timestamp.
 	ts = int(m.find('LocalTimestamp').text) / (10 * 1000 * 1000) - 11644473600
 
 	attachments = m.find('Attachments')
 	if attachments is None or len(attachments) == 0:
+		# Convert UNIX timestamp from seconds to milliseconds
+		ts = ts * 1000
+		
 		line = sms_template.format(
 			address=address,
-			timestamp=ts*1000,
+			timestamp=ts,
 			type=type,
 			body=body,
 			read=read
@@ -206,7 +209,7 @@ for m in messages:
 			m_type=message_type,
 			exp=expiry,
 			resp_st=response_status,
-			date=ts*1000,
+			date=ts,
 			address=address,
 			readable_date=readable_date,
 			parts=parts,
