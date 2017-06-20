@@ -226,10 +226,10 @@ output = output_template.format(
 path = os.path.dirname(os.path.abspath(file_path))
 
 if isPy3:
-	with open(os.path.join(path, 'wp_messages.xml'), 'w', encoding='utf-8') as file:
+	with open(os.path.join(path, 'sms-wp.xml'), 'w', encoding='utf-8') as file:
 		file.write(output)
 else:
-	with open(os.path.join(path, 'wp_messages.xml'), 'w') as file:
+	with open(os.path.join(path, 'sms-wp.xml'), 'w') as file:
 		file.write(output)
 
-print('\n\nSuccess. Output to --> wp_messages.xml')
+print('\n\nSuccess. Output to --> sms-wp.xml')
